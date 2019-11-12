@@ -17,9 +17,6 @@ android {
         versionName app.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    dataBinding {
-        enabled = true
-    }
     buildTypes {
         release {
             minifyEnabled false
@@ -31,10 +28,18 @@ android {
         sourceCompatibility config.java
         targetCompatibility config.java
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 androidExtensions {
     experimental = true
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {

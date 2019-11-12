@@ -1,25 +1,22 @@
 package fr.ap7.iot
 
-import android.app.Activity
 import android.app.Application
+import timber.log.Timber
 
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import fr.ap7.iot.di.DaggerAppComponent
-import javax.inject.Inject
-
-class App : Application(), HasActivityInjector {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+/**
+ * Initialize timber log & set in debug mode only.
+ *
+ * @author ap7
+ */
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        DaggerAppComponent.builder().application(this).build().inject(this)
-    }
 
-    override fun activityInjector(): AndroidInjector<Activity>? {
-        return dispatchingAndroidInjector
+        when {
+            BuildConfig.DEBUG -> Timber.plant(Timber.DebugTree())
+            else -> Timber.plant()
+        }
+        Timber.tag("IoT Test")
     }
 }

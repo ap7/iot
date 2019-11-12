@@ -6,4 +6,6 @@
     <string name="sample_device">Lampe - Cuisine</string>
     <string name="intensity">Intensity:</string>
     <string name="sample_product_type">Light</string>
+    <string name="retry">Retry</string>
+    <string name="post_error">An error occurred while loading the posts</string>
 </resources>

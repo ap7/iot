@@ -1,20 +1,27 @@
 package fr.ap7.iot.model
 
-import android.os.Parcelable
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 
-@Parcelize
-data class Address constructor(
-    @Expose @SerializedName("city") val city: String,
-    @Expose @SerializedName("postalCode") val postalCode: Int,
-    @Expose @SerializedName("street") val street: String,
-    @Expose @SerializedName("streetCode") val streetCode: String,
-    @Expose @SerializedName("country") val country: String
-) : Parcelable {
+/**
+ * Class which provides a model for post
+ *
+ * Defining Post object as it is in the JSONPlaceholder API.
+ *
+ * @constructor Sets all properties of the post
+ * @property userId the unique identifier of the author of the post
+ * @property id the unique identifier of the post
+ * @property title the title of the post
+ * @property body the content of the post
+ *
+ *  @author Ap7
+ */
 
-    init {
-        println("Address object was created")
-    }
-}
+data class Address (
+    val city: String,
+    val postalCode: Int,
+    val street: String,
+    val streetCode: String,
+    val country: String
+)

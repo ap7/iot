@@ -11,7 +11,7 @@ buildscript {
     // Build config versions
     ext.config = [
             'android' : [
-                    'minSdk' : 14,
+                    'minSdk' : 21,
                     'targetSdk' : 29,
                     'compileSdk' : 29,
             ],

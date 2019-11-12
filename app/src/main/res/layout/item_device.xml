@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!--<data>
+    <data>
         <variable
                 name="viewModel"
-                type="fr.ap7.mastermind.ui.PostViewModel" />
-    </data>-->
+                type="fr.ap7.iot.ui.DeviceViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -36,12 +36,14 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
+                app:mutableText="@{viewModel.getDeviceName}"
                 android:text="@string/sample_device"
                 android:textColor="@color/title_text_color"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/mode"
+                app:binding="@{viewModel.getMode}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/deviceName"
@@ -50,7 +52,6 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="20dp"
-                android:checked="true"
                 android:lineSpacingExtra="8dp"
                 android:switchMinWidth="56dp"
                 android:text="@string/mode"
@@ -96,6 +97,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                app:mutableText="@{viewModel.getProductType}"
                 android:text="Light"
                 android:textColor="@color/content_text_color" />
 
