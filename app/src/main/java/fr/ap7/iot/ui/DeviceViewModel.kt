@@ -19,11 +19,13 @@ class DeviceViewModel : BaseViewModel() {
     private val deviceTitle = MutableLiveData<String>()
     private val productName = MutableLiveData<String>()
     private val deviceMode = MutableLiveData<String>()
+    private val intensity = MutableLiveData<Int>()
 
     fun bind(device: Device) {
         deviceTitle.value = device.deviceName
         productName.value = device.productType
         deviceMode.value = device.mode
+        intensity.value = device.intensity
     }
 
     fun getDeviceName(): MutableLiveData<String> {
@@ -36,5 +38,9 @@ class DeviceViewModel : BaseViewModel() {
 
     fun getMode(): MutableLiveData<String> {
         return deviceMode
+    }
+
+    fun getIntensity(): MutableLiveData<Int> {
+        return intensity
     }
 }

@@ -1,7 +1,9 @@
 package fr.ap7.iot.utils
 
-import android.content.Context
+import android.annotation.TargetApi
+import android.os.Build
 import android.view.View
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -10,9 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import fr.ap7.mastermind.utils.extension.getParentActivity
-import androidx.databinding.adapters.CompoundButtonBindingAdapter.setChecked
-import android.widget.CompoundButton
-import fr.ap7.iot.utils.extension.Bindable
+import timber.log.Timber
 
 
 /**
@@ -73,18 +73,50 @@ fun setMutableText(view: TextView,  text: MutableLiveData<String>?) {
  *
  * @param "mutableSwitch" is an attribute that I'm create
  */
-@BindingAdapter("binding")
+@BindingAdapter("mutableSwitch")
 fun setMutableSwitch(view: SwitchCompat, checked: MutableLiveData<String>?) {
     val parentActivity:AppCompatActivity? = view.getParentActivity()
     if(parentActivity != null && checked != null) {
-        checked.observe(parentActivity, Observer { value -> if (value == "ON") {
-            view.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (buttonView?.isChecked != isChecked) {
-                    buttonView?.isChecked = isChecked
-
-                }
+        checked.observe(parentActivity, Observer { value ->
+            when (value) {
+                "ON" -> view.isChecked = true
+                else -> view.isChecked = false
             }
-        }})
+        })
     }
 }
 
+/**
+ * This attribute does not exist, so we will have to define it with a dedicated BindingAdapter
+ *
+ * Come from item_post.xml
+ *
+ * @param "mutableSwitch" is an attribute that I'm create
+ */
+@BindingAdapter("mutableSeekBar")
+fun setMutableSeekBar(view: SeekBar, intensity: MutableLiveData<Int>?) {
+    val parentActivity: AppCompatActivity? = view.getParentActivity()
+    if (parentActivity != null && intensity != null) {
+        intensity.observe(parentActivity, Observer { value ->
+            view.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                var progressChangedValue = value.toInt()
+
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    progressChangedValue = progress
+                    seekBar.progress = progressChangedValue
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar) {
+                    seekBar.progress = progressChangedValue
+                }
+
+                @TargetApi(Build.VERSION_CODES.N)
+                override fun onStopTrackingTouch(seekBar: SeekBar) {
+                    Timber.i("Seek bar progress is :$progressChangedValue")
+                    seekBar.progress = progressChangedValue
+                }
+
+            })
+        })
+    }
+}

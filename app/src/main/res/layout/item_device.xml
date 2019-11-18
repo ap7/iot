@@ -13,7 +13,6 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
-
         <RelativeLayout
             android:id="@+id/container"
             android:layout_width="0dp"
@@ -43,7 +42,6 @@
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/mode"
-                app:binding="@{viewModel.getMode}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/deviceName"
@@ -52,6 +50,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="20dp"
+                app:mutableSwitch="@{viewModel.getMode}"
                 android:lineSpacingExtra="8dp"
                 android:switchMinWidth="56dp"
                 android:text="@string/mode"
@@ -74,6 +73,7 @@
                 android:textColor="@color/content_text_color" />
 
             <SeekBar
+                android:id="@+id/seekBarIntensity"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/mode"
@@ -83,9 +83,37 @@
                 android:layout_marginEnd="-190dp"
                 android:layout_marginRight="-190dp"
                 android:lineSpacingExtra="8dp"
+                android:min="0"
                 android:max="100"
-                android:min="10"
-                android:progress="30"
+                android:progress="@={viewModel.getIntensity}"
+                android:textColor="@color/content_text_color" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/mode"
+                android:layout_alignEnd="@+id/seekBarIntensity"
+                android:layout_alignRight="@+id/seekBarIntensity"
+                android:layout_marginTop="23dp"
+                android:layout_marginEnd="-25dp"
+                android:layout_marginRight="-25dp"
+                android:text="@{String.valueOf(viewModel.getIntensity)}"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/intensity"
+                android:layout_alignStart="@+id/deviceName"
+                android:layout_alignLeft="@id/deviceName"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="20dp"
+                android:lineSpacingExtra="8dp"
+                android:text="@string/position"
                 android:textColor="@color/content_text_color" />
 
             <TextView
@@ -98,7 +126,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 app:mutableText="@{viewModel.getProductType}"
-                android:text="Light"
+                android:text="@string/sample_product_type"
                 android:textColor="@color/content_text_color" />
 
         </RelativeLayout>
