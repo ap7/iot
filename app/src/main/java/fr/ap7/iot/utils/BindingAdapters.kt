@@ -47,7 +47,14 @@ fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
 fun setMutableVisibility(view: View,  visibility: MutableLiveData<Int>?) {
     val parentActivity:AppCompatActivity? = view.getParentActivity()
     if(parentActivity != null && visibility != null) {
-        visibility.observe(parentActivity, Observer { value -> view.visibility = value?:View.VISIBLE})
+        visibility.observe(parentActivity, Observer { value ->
+            view.visibility =
+                if (value != null) {
+                    value
+                } else {
+                    View.VISIBLE
+                }
+        })
     }
 }
 
@@ -80,7 +87,8 @@ fun setMutableSwitch(view: SwitchCompat, checked: MutableLiveData<String>?) {
         checked.observe(parentActivity, Observer { value ->
             when (value) {
                 "ON" -> view.isChecked = true
-                else -> view.isChecked = false
+                "OFF" -> view.isChecked = false
+                "" -> view.visibility = View.GONE
             }
         })
     }
@@ -117,6 +125,64 @@ fun setMutableSeekBar(view: SeekBar, intensity: MutableLiveData<Int>?) {
                 }
 
             })
+        })
+    }
+}
+
+@BindingAdapter("mutableSeekBarPosition")
+fun setMutableSeekBarPosition(view: SeekBar, intensity: MutableLiveData<Int>?) {
+    val parentActivity: AppCompatActivity? = view.getParentActivity()
+    if (parentActivity != null && intensity != null) {
+        intensity.observe(parentActivity, Observer { value ->
+            view.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                var progressChangedValue = value.toInt()
+
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    progressChangedValue = progress
+                    seekBar.progress = progressChangedValue
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar) {
+                    seekBar.progress = progressChangedValue
+                }
+
+                @TargetApi(Build.VERSION_CODES.N)
+                override fun onStopTrackingTouch(seekBar: SeekBar) {
+                    Timber.i("Seek bar progress is :$progressChangedValue")
+                    seekBar.progress = progressChangedValue
+                }
+
+            })
+        })
+    }
+}
+
+@BindingAdapter("mutableViewVisibility")
+fun setMutableViewVisibility(view: View, visibility: MutableLiveData<Int>?) {
+    val parentActivity: AppCompatActivity? = view.getParentActivity()
+    if (parentActivity != null && visibility != null) {
+        visibility.observe(parentActivity, Observer { value ->
+            view.visibility =
+                if (value != null) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+        })
+    }
+}
+
+@BindingAdapter("mutableModeViewVisibility")
+fun setMutableModeViewVisibility(view: View, visibility: MutableLiveData<String>?) {
+    val parentActivity: AppCompatActivity? = view.getParentActivity()
+    if (parentActivity != null && visibility != null) {
+        visibility.observe(parentActivity, Observer { value ->
+            view.visibility =
+                if (value == null) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
         })
     }
 }

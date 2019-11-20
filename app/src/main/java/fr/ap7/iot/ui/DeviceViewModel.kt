@@ -20,27 +20,23 @@ class DeviceViewModel : BaseViewModel() {
     private val productName = MutableLiveData<String>()
     private val deviceMode = MutableLiveData<String>()
     private val intensity = MutableLiveData<Int>()
+    private val position = MutableLiveData<Int>()
 
     fun bind(device: Device) {
         deviceTitle.value = device.deviceName
         productName.value = device.productType
         deviceMode.value = device.mode
         intensity.value = device.intensity
+        position.value = device.position
     }
 
-    fun getDeviceName(): MutableLiveData<String> {
-        return deviceTitle
-    }
+    fun getDeviceName(): MutableLiveData<String> = deviceTitle
 
-    fun getProductType(): MutableLiveData<String> {
-        return productName
-    }
+    fun getProductType(): MutableLiveData<String> = productName
 
-    fun getMode(): MutableLiveData<String> {
-        return deviceMode
-    }
+    fun getMode(): MutableLiveData<String> = deviceMode
 
-    fun getIntensity(): MutableLiveData<Int> {
-        return intensity
-    }
+    fun getIntensity(): MutableLiveData<Int> = intensity
+
+    fun getPosition(): MutableLiveData<Int> = position
 }
