@@ -163,6 +163,45 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/intensity"
+                android:layout_alignStart="@+id/deviceName"
+                android:layout_alignLeft="@id/deviceName"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="50dp"
+                android:lineSpacingExtra="8dp"
+                android:text="@string/temperature"
+                app:mutableViewVisibility="@{viewModel.getTemperature}"
+                android:textColor="@color/content_text_color" />
+
+            <SeekBar
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/intensity"
+                android:layout_alignEnd="@+id/temperature"
+                android:layout_alignRight="@+id/temperature"
+                android:layout_marginTop="47dp"
+                android:layout_marginEnd="-189dp"
+                android:layout_marginRight="-189dp"
+                android:colorControlActivated="@color/default_blue_light"
+                android:lineSpacingExtra="8dp"
+                android:max="28"
+                android:min="7"
+                android:padding="5dp"
+                android:progressBackgroundTint="@color/design_default_color_primary"
+                android:progressTint="@color/black"
+                android:textColor="@color/content_text_color"
+                android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:thumb="@drawable/temperature"
+                android:thumbOffset="15dp"
+                app:mutableViewVisibility="@{viewModel.getTemperature}"
+                app:progress="@{viewModel.getTemperature}"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
                 android:id="@+id/productType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
