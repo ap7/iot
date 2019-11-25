@@ -22,20 +22,18 @@ class DeviceListAdapter : RecyclerView.Adapter<DeviceListAdapter.ViewHolder>() {
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(deviceList[position])
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(deviceList[position])
 
     override fun getItemCount(): Int {
-        return if(::deviceList.isInitialized) deviceList.size else 0
+        return when {::deviceList.isInitialized -> deviceList.size else -> 0 }
     }
 
-    fun updatePostList(deviceList: List<Device>){
+    fun updatePostList(deviceList: List<Device>) {
         this.deviceList = deviceList
         notifyDataSetChanged()
     }
 
-    class ViewHolder(private val binding: ItemDeviceBinding):RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(private val binding: ItemDeviceBinding):RecyclerView.ViewHolder(binding.root) {
         private val viewModel = DeviceViewModel()
 
         fun bind(device: Device){

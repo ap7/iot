@@ -186,7 +186,7 @@
                 android:layout_marginTop="47dp"
                 android:layout_marginEnd="-189dp"
                 android:layout_marginRight="-189dp"
-                android:colorControlActivated="@color/default_blue_light"
+                android:colorControlActivated="@color/design_default_color_secondary"
                 android:lineSpacingExtra="8dp"
                 android:max="28"
                 android:min="7"
